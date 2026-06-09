@@ -210,97 +210,91 @@
   }
   .chip:hover { color: var(--text); border-color: var(--accent); }
 
-  /* ---------- PROJECTS ---------- */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
-    align-items: start;
-  }
-  .card {
-    background: var(--card);
+  /* ---------- WORK / PROJECTS ---------- */
+  .work-tabs {
+    display: inline-flex;
+    gap: 6px;
+    padding: 6px;
+    margin-bottom: 30px;
+    border-radius: 999px;
+    background: rgba(19,25,37,0.6);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
-    display: flex;
-    flex-direction: column;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-wrap: wrap;
   }
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  }
-  .card-thumb {
-    height: 180px;
-    background: linear-gradient(135deg, #1a2433, #11161f);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.6rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .card-thumb::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(400px circle at 30% 20%, var(--glow), transparent 60%);
-    opacity: 0.5;
-  }
-  .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .card-thumb svg {
-    width: 108px; height: 108px;
-    position: relative; z-index: 2;
-    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
-    transition: transform 0.3s;
-  }
-  .card:hover .card-thumb svg { transform: translateY(-4px) scale(1.05); }
-  .card-body { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .card-tag {
-    align-self: flex-start;
-    font-size: 0.72rem;
+  .work-tab {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    background: rgba(124,92,255,0.12);
-    color: var(--accent);
-  }
-  .card-tag.design { background: rgba(0,224,198,0.12); color: var(--accent-2); }
-  .card-tag.game { background: rgba(154,169,200,0.16); color: #9aa9c8; }
-  .card h3 { font-size: 1.25rem; font-weight: 700; }
-  .card p { color: var(--muted); font-size: 0.92rem; flex: 1; }
-  .card-links { display: flex; gap: 14px; margin-top: 4px; flex-wrap: wrap; }
-  .card-links a {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--accent);
+    font-size: 0.9rem;
+    padding: 9px 20px;
+    border-radius: 999px;
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    transition: gap 0.2s;
+    gap: 8px;
+    transition: color 0.2s, background 0.25s;
   }
-  .card-links a:hover { gap: 10px; }
+  .work-tab .count {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: rgba(111,163,214,0.14);
+    color: var(--accent);
+  }
+  .work-tab:hover { color: var(--text); }
+  .work-tab.active {
+    color: #06121f;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .work-tab.active .count { background: rgba(6,18,31,0.18); color: #06121f; }
 
-  /* list of designs inside a single card */
-  .design-list { list-style: none; display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
-  .design-list a {
+  .work-panel { display: none; }
+  .work-panel.active {
+    display: block;
+    animation: panelIn 0.4s ease both;
+  }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* minimal text list — clean rows, just name + arrow */
+  .proj {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 11px 4px;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--text);
+    gap: 20px;
+    padding: 22px 6px;
     border-bottom: 1px solid var(--border);
-    transition: color 0.2s, padding 0.2s;
+    transition: padding 0.25s cubic-bezier(.2,.7,.2,1);
   }
-  .design-list li:last-child a { border-bottom: none; }
-  .design-list a:hover { color: var(--accent-2); padding-left: 8px; }
-  .design-list a span { color: var(--accent-2); transition: transform 0.2s; }
-  .design-list a:hover span { transform: translateX(4px); }
+  .work-panel .proj:last-child { border-bottom: none; }
+  .proj:hover { padding-left: 16px; }
+  .proj-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+  .proj:hover .proj-name { color: var(--accent); }
+  .proj .go {
+    display: inline-flex; align-items: center;
+    font-size: 1.3rem;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: transform 0.25s cubic-bezier(.2,.7,.2,1), color 0.2s;
+  }
+  .proj:hover .go { color: var(--accent); transform: translateX(8px); }
+
+  /* per-category accents */
+  .proj.design:hover .proj-name, .proj.design:hover .go { color: var(--accent-2); }
+  .proj.game:hover .proj-name, .proj.game:hover .go { color: #9aa9c8; }
 
   /* ---------- CONTACT ---------- */
   .contact-card {
@@ -384,6 +378,7 @@
         <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#contact">Contact</a>
+        <a href="cv_tala_alkhateeb-1.pdf" target="_blank" rel="noopener">CV</a>
       </div>
     </div>
   </nav>
@@ -394,10 +389,11 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <div class="badge"><span class="dot"></span> Available for work</div>
-          <h1>I build <span class="grad">websites, designs</span> &amp; games that work.</h1>
+          <h1>I design &amp; build <span class="grad">websites, apps</span> &amp; games</h1>
           <p class="lead">Software engineer and web developer crafting clean, fast, and memorable digital experiences — from production websites to Figma concepts to playable games.</p>
           <div class="cta-row">
             <a href="#work" class="btn btn-primary">View my work</a>
+            <a href="cv_tala_alkhateeb-1.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Download CV</a>
             <a href="#contact" class="btn btn-ghost">Get in touch</a>
           </div>
         </div>
@@ -455,99 +451,38 @@
         <p>A mix of live websites, design concepts, and games I've built.</p>
       </div>
 
-      <div class="projects-grid">
+      <!-- filter tabs -->
+      <div class="work-tabs reveal" role="tablist">
+        <button class="work-tab active" data-panel="websites" role="tab">Websites <span class="count">11</span></button>
+        <button class="work-tab" data-panel="designs" role="tab">Designs <span class="count">3</span></button>
+        <button class="work-tab" data-panel="games" role="tab">Games <span class="count">1</span></button>
+      </div>
 
-        <!-- WEBSITE PROJECT -->
-        <article class="card reveal">
-          <div class="card-thumb">
-            <svg viewBox="0 0 64 64" fill="none" stroke="#6fa3d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="32" y1="5" x2="32" y2="12"/>
-              <circle cx="32" cy="4" r="2.2" fill="#6fa3d6" stroke="none"/>
-              <rect x="12" y="12" width="40" height="34" rx="9"/>
-              <line x1="12" y1="27" x2="7" y2="27"/>
-              <line x1="52" y1="27" x2="57" y2="27"/>
-              <line x1="24" y1="50" x2="24" y2="55"/>
-              <line x1="40" y1="50" x2="40" y2="55"/>
-              <circle cx="32" cy="29" r="9"/>
-              <path d="M23 29h18M32 20v18M26 23c2.4 3.4 2.4 9.6 0 13M38 23c-2.4 3.4-2.4 9.6 0 13"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <span class="card-tag">Websites</span>
-            <h3>Live Projects</h3>
-            <p>Websites and web apps I've designed and built — open any one to try it live.</p>
-            <ul class="design-list">
-              <li><a target="_blank" rel="noopener" href="https://mixtape-maker-8s6q.vercel.app/">Mixtape Maker <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://henna-invitation.vercel.app/">Henna Invitation <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://viva-delta.vercel.app/">VIVA EVENTS <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://ai-analyst-dashboard-p1o6.vercel.app/">AI Analyst Dashboard <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://gender-reveal-invitation-two.vercel.app/">Gender Reveal Invitation <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://henna-night.vercel.app/">Henna Night <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://tala-birthday-invite.vercel.app/">Birthday Invitation <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://sarah-john-wedding.vercel.app/">Sarah &amp; John Wedding <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://weddinginvitaton2.netlify.app/">Wedding Invitation <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://re-make-mdus-website.vercel.app/">MDUS Website <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://hail-nine.vercel.app/">Hail <span>→</span></a></li>
-            </ul>
-          </div>
-        </article>
+      <!-- WEBSITES -->
+      <div class="work-panel active" id="panel-websites">
+        <a class="proj" target="_blank" rel="noopener" href="https://mixtape-maker-8s6q.vercel.app/"><span class="proj-name">Mixtape Maker</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://henna-invitation.vercel.app/"><span class="proj-name">Henna Invitation</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://viva-delta.vercel.app/"><span class="proj-name">VIVA Events</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://ai-analyst-dashboard-p1o6.vercel.app/"><span class="proj-name">AI Analyst Dashboard</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://gender-reveal-invitation-two.vercel.app/"><span class="proj-name">Gender Reveal Invitation</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://henna-night.vercel.app/"><span class="proj-name">Henna Night</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://tala-birthday-invite.vercel.app/"><span class="proj-name">Birthday Invitation</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://sarah-john-wedding.vercel.app/"><span class="proj-name">Sarah &amp; John Wedding</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://weddinginvitaton2.netlify.app/"><span class="proj-name">Wedding Invitation</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://re-make-mdus-website.vercel.app/"><span class="proj-name">MDUS Website</span><span class="go">→</span></a>
+        <a class="proj" target="_blank" rel="noopener" href="https://hail-nine.vercel.app/"><span class="proj-name">Hail</span><span class="go">→</span></a>
+      </div>
 
-        <!-- FIGMA DESIGNS (single card, multiple designs) -->
-        <article class="card reveal">
-          <div class="card-thumb">
-            <svg viewBox="0 0 64 64" fill="none" stroke="#67c0d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="32" y1="5" x2="32" y2="12"/>
-              <circle cx="32" cy="4" r="2.2" fill="#67c0d6" stroke="none"/>
-              <rect x="12" y="12" width="40" height="34" rx="9"/>
-              <line x1="12" y1="27" x2="7" y2="27"/>
-              <line x1="52" y1="27" x2="57" y2="27"/>
-              <line x1="24" y1="50" x2="24" y2="55"/>
-              <line x1="40" y1="50" x2="40" y2="55"/>
-              <path d="M26 36l1-5 11-11 4 4-11 11-5 1z"/>
-              <path d="M36 22l4 4"/>
-              <path d="M26 36l3.5-1.2"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <span class="card-tag design">Figma Designs</span>
-            <h3>Design Work</h3>
-            <p>A selection of my UI/UX concepts crafted in Figma — open any one to explore it.</p>
-            <ul class="design-list">
-              <li><a target="_blank" rel="noopener" href="https://www.figma.com/design/yGT6dyLu2zrIo5PUo8UNfp/Untitled?m=auto&t=Ik6rgCke1hnckMhZ-6">Buy Now Pay Later <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://www.figma.com/design/cnh7NlEVGaLIvRMbGeWchr/Untitled?m=auto&t=Ik6rgCke1hnckMhZ-6">TripTime <span>→</span></a></li>
-              <li><a target="_blank" rel="noopener" href="https://www.figma.com/design/4N8Z9uleOOOI50vA8uEj2o/Winter-is-Coming?m=auto&t=4g4NCoxbzQzBrAb9-6">Winter is Coming <span>→</span></a></li>
-            </ul>
-          </div>
-        </article>
+      <!-- DESIGNS -->
+      <div class="work-panel" id="panel-designs">
+        <a class="proj design" target="_blank" rel="noopener" href="https://www.figma.com/design/yGT6dyLu2zrIo5PUo8UNfp/Untitled?m=auto&t=Ik6rgCke1hnckMhZ-6"><span class="proj-name">Buy Now Pay Later</span><span class="go">→</span></a>
+        <a class="proj design" target="_blank" rel="noopener" href="https://www.figma.com/design/cnh7NlEVGaLIvRMbGeWchr/Untitled?m=auto&t=Ik6rgCke1hnckMhZ-6"><span class="proj-name">TripTime</span><span class="go">→</span></a>
+        <a class="proj design" target="_blank" rel="noopener" href="https://www.figma.com/design/4N8Z9uleOOOI50vA8uEj2o/Winter-is-Coming?m=auto&t=4g4NCoxbzQzBrAb9-6"><span class="proj-name">Winter is Coming</span><span class="go">→</span></a>
+      </div>
 
-        <!-- GAME PROJECT -->
-        <article class="card reveal">
-          <div class="card-thumb">
-            <svg viewBox="0 0 64 64" fill="none" stroke="#9aa9c8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="32" y1="5" x2="32" y2="12"/>
-              <circle cx="32" cy="4" r="2.2" fill="#9aa9c8" stroke="none"/>
-              <rect x="12" y="12" width="40" height="34" rx="9"/>
-              <line x1="12" y1="27" x2="7" y2="27"/>
-              <line x1="52" y1="27" x2="57" y2="27"/>
-              <line x1="24" y1="50" x2="24" y2="55"/>
-              <line x1="40" y1="50" x2="40" y2="55"/>
-              <rect x="20" y="24" width="24" height="12" rx="6"/>
-              <line x1="26" y1="30" x2="30" y2="30"/>
-              <line x1="28" y1="28" x2="28" y2="32"/>
-              <circle cx="37" cy="28.5" r="1.2" fill="#9aa9c8" stroke="none"/>
-              <circle cx="39.5" cy="31.5" r="1.2" fill="#9aa9c8" stroke="none"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <span class="card-tag game">Game App</span>
-            <h3>Verdant Wars</h3>
-            <p>A game I designed and built — explore the project, code, and gameplay on GitHub.</p>
-            <div class="card-links">
-              <a href="https://github.com/talaalkhateebb/VERDANT-WARS-GAME-" target="_blank" rel="noopener">View on GitHub →</a>
-            </div>
-          </div>
-        </article>
-
+      <!-- GAMES -->
+      <div class="work-panel" id="panel-games">
+        <a class="proj game" target="_blank" rel="noopener" href="https://github.com/talaalkhateebb/VERDANT-WARS-GAME-"><span class="proj-name">Verdant Wars</span><span class="go">→</span></a>
       </div>
     </div>
   </section>
@@ -624,6 +559,17 @@
     }
     const splineTimer = setInterval(removeSplineLogo, 400);
     setTimeout(() => clearInterval(splineTimer), 12000);
+
+    // work filter tabs
+    document.querySelectorAll(".work-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.panel;
+        document.querySelectorAll(".work-tab").forEach((t) => t.classList.toggle("active", t === tab));
+        document.querySelectorAll(".work-panel").forEach((p) => {
+          p.classList.toggle("active", p.id === "panel-" + target);
+        });
+      });
+    });
 
     // reveal on scroll
     const io = new IntersectionObserver((entries) => {
